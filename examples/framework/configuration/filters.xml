@@ -1,0 +1,7 @@
+<?xml version='1.0'?>
+<filters>
+	<filter>Chair_Setup</filter>
+	<filter>Chair_Route</filter>
+	<filter>Chair_Execute</filter>
+	<filter>Chair_Output</filter>
+</filters>

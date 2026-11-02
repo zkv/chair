@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<contexts>
+	<context name=''>
+		<command name='execute' class='Chair_Main' method='__construct' />
+	</context>
+</contexts>

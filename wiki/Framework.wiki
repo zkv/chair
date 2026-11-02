@@ -1,0 +1,167 @@
+#summary Description of the HTTP Framework package located at chair/framework/
+
+= General architecture: =
+
+Framework filters, listed inside configuration/filters.xml are executed in the same order they appear inside config file.
+
+All filters have read/write access to request and response.
+
+Current filters are: 
+  * Setup
+  * Route 
+  * Execute 
+  * Output
+
+== Setup Filter ==
+
+Adds next attributes to request:
+  * get (get variables)
+  * post (post variables)
+  * server (server variables)
+  * environment (environment variables)
+  * location (location variable)
+  * string (string variable)
+  * array (array variables)
+  * cookies (cookies variables)
+  * files (files variables
+
+== Route Filter ==
+
+Route parses configuration/routes.xml file and add corresponding attributes to request:
+  * plan (execution plan path)
+  * output (output type)
+  * attributes (matched inside route patterns)
+
+== Execute Filter ==
+
+Execute filter parses execution plan config file. 
+
+Step class can be View or Action.
+
+Classes inside step can be Filter or Action or View.
+
+Step processing is done it the following way:
+  # Filters execution.
+  # Plan class execution.
+  # View if it was returned saved.
+
+=== Plan Filters ===
+  * Have access to actions request and response.
+  * Can return view name.
+  * Can throw Action Replace Exception.
+  * Can throw Plan Replace Exception.
+  * Have access to Filter context.
+ 
+=== Plan Class ===
+  * Have access to the request formed by filter and response formed by filters.
+  * Form views request.
+  * Can return view name.
+  * Can throw Action Replace Exception
+  * Can throw Plan Replace Exception
+  * Have access to Action or View context depending on the class.
+
+=== Plan View ===
+  * Have access to the request formed by action and view response.
+  * Form slots of the child views.
+  * Have access to View context.
+
+=== Slots and nested views explanation ===
+
+When execution plan run - a number of step will be executed. Each step results in a view or absence of the view. If:
+
+  * View returned by the step 
+  * Inside step we have Action or View classes
+
+then views response should be places as slot inside View returned by Action which defined inside the step or View defined inside the step.
+
+So execution is done in two iterations:
+  * Steps are executed one by one. All views if they was returned by steps are collected.   
+  * Views are executed one by one. Views responses are redirected to nested views inside slots. If two or more views redirect its output to the 3rd slot then attributes will be merged.
+
+== Output Filter ===
+
+  * Output gets MIME-type from the execution plan configuration file or uses default.
+  * MIME type is added to response. 
+  * Response send.
+
+= What should i do to create application? =
+
+  * You should create Filters, Actions, Views and extend from corresponding classes.
+  * You should add classes directories to autoload.xml configuration file.
+  * You should add contexts for the context-based behaviour.
+  * You should add routes to the configuration/routes.xml configuration file.
+  * You should add execution plans for the corresponding routes.
+
+== Dependencies ==
+
+Depends on autoload, context.
+
+== Example of usage ==
+
+=== Test filter class ===
+{{{
+class Test_Filter extends Filter
+{
+    public function executeBefore()
+    {
+        $this->request->setAttribute('title', 'test');
+    }
+}
+}}}
+
+=== Test action class ===
+{{{
+class Test_Action extends Action
+{
+    public function act()
+    {  
+        /* access to the action request and response */
+        $this->response->setAttribute('title',$this->request->getAttribute('title'));
+      
+        /* access to the http request */
+        $httpRequest = $this->getContext()->getHttpRequest();
+        $post = $httpRequest->getAttribute('post');
+        if (isset($post->information)) {
+            return 'Test_Action_OK';
+        }
+        return 'Post_Information_Empty';
+    }
+}
+}}}
+
+=== Test view class ===
+{{{
+class Test_Action_OK extends View
+{
+    public function renderHTML()
+    {
+        $httpResponse = $this->getContext()->getHttpResponse();
+        $thtpResponse->setContent($this->request->getAttribute('title'));
+    }
+}
+}}}
+
+=== Routes config ===
+{{{
+<?xml version='1.0'?>
+<routes>
+    <route>
+        <path><![CDATA[^test$]]></path>
+        <path><![CDATA[^test/$]]></path>
+        <path><![CDATA[^example.*$]]></path>
+        <output default='html'>
+            <html mime='text/html' href='configuration/plans/html_example.xml' />
+        </output>
+    </route>
+</routes>
+}}}
+
+=== Execution plan config ===
+{{{
+<?xml version='1.0'?>
+<plan>
+    <step name='Test_Action'>
+        <class name='Test_Filter' />
+    </step>
+</plan>
+}}}

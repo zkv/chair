@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<plan>
+	<step name='Get_Information_About_System'>
+		<class name='Debug' />
+		<class name='Generate_Information' />
+	</step>
+	<step name='Generate_Information'>
+		<class name='Profile' />
+	</step>
+</plan>

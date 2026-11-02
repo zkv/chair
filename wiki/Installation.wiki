@@ -1,0 +1,32 @@
+#summary Distribution, Requirment and Setup of the library.
+#labels Deprecated,Phase-Deploy
+
+= Distribution: =
+
+Archives with the library is available from next sites:
+  * [http://google.code.com/p/chair/]
+  * [http://sourceforge.net/projects/chair/]
+  * [http://chair.sourceforge.net/]
+
+= Requirements: =
+
+  * Apache HTTP Server
+  * PHP 5
+
+= Setup: =
+   
+   # Go to the directory where you plan to host your project.
+   # Download or copy archive with the chair distribution to this direcotory.
+   # Unpack it.
+   # Now you have system ready for usage.
+
+== Notes: ==
+
+You have to be sure that Apache HTTP server configured properly:
+  * mod_rewrite enabled
+  * AllowOverride All set for the chair-0.1.1 directory
+
+If you need another site location, you have to do next steps:
+  * Move chair-0.1.1 directory content to some/directory
+  * Change .htaccess Rewrite base set to /some/direcotory
+  * AllowOverride All set for some/directory

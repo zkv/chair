@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<autoload>
+	<directory>modules/example/views/</directory>
+	<directory>modules/example/actions/</directory>
+	<directory>modules/example/filters/</directory>
+</autoload>

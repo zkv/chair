@@ -1,0 +1,14 @@
+#summary Section about chair/development project.
+
+= Examples: =
+
+{{{
+/* tracing of the variable */
+T::trace($variable);
+
+/* tracing of the group of variables */
+T::trace($variable, $anotherVariable, $oneMoreVariable);
+
+/* tracing and exit */
+T::traceAndExit($var1, $var2, $var3);
+}}}

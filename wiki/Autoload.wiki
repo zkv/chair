@@ -1,0 +1,32 @@
+#summary Autoload package explained
+
+= Autoload =
+
+Autoload parses config files for the directories, scans them for files and save
+className => directoryPath hashes. 
+
+When it is asked for className it would be automatically loaded from the hash.
+
+== Dependencies: ==
+
+To use autoload it should be included.
+
+Here is the example of the autoload class include:
+{{{
+require_once('chair/autoload/autoload.php');
+}}}
+
+== Interface: ==
+
+{{{
+Autoload::watch('path/to/autoload/config.xml');
+}}}
+
+== Format of autoload.xml config ==
+
+{{{
+<autoload>
+    <directory>path/to/the/directory/</directory>
+    <directory>another/path/to/the/directory/</directory>
+</autoload>
+}}}

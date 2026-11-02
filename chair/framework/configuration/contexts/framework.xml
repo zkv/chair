@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<contexts>
+	<context name='Chair_Framework_Registry'>
+		<command name='getHttpRequest' class='Chair_Memory' method='__construct' />
+		<command name='getHttpResponse' class='Chair_Response' method='__construct' />
+	</context>
+	<context name='Chair_Main'>
+		<command name='getHttpRequest' class='Chair_Framework_Registry' method='getHttpRequest' />
+		<command name='getHttpResponse' class='Chair_Framework_Registry' method='getHttpResponse' />
+		<command name='getFilter' class='Chair_Filter' method='__construct' />
+	</context>
+	<context name='Chair_Setup'>
+		<command name='getGlobalArray' class='Chair_Global_Array' method='__construct' />
+	</context>
+	<context name='Chair_Route'>
+		<command name='getGlobalArray' class='Chair_Global_Array' method='__construct' />
+		<command name='getExecutor' class='Chair_Executor' method='__construct' />
+		<command name='getRoute' class='Chair_Router' method='getRoute' />
+	</context>
+	<context name='Chair_Execute'>
+		<command name='getFilter' class='Chair_Filter' method='__construct' />
+		<command name='getMemory' class='Chair_Memory' method='__construct' />
+	</context>
+	<context name='Chair_Action'>
+		<command name='getHttpRequest' class='Chair_Framework_Registry' method='getHttpRequest' />
+		<command name='getHttpResponse' class='Chair_Framework_Registry' method='getHttpResponse' />
+	</context>
+	<context name='Chair_View'>
+		<command name='getHttpRequest' class='Chair_Framework_Registry' method='getHttpRequest' />
+		<command name='getHttpResponse' class='Chair_Framework_Registry' method='getHttpResponse' />
+	</context>
+	<context name='Chair_Filter'>
+		<command name='getHttpRequest' class='Chair_Framework_Registry' method='getHttpRequest' />
+		<command name='getHttpResponse' class='Chair_Framework_Registry' method='getHttpResponse' />
+	</context>
+</contexts>

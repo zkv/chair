@@ -1,0 +1,21 @@
+#summary Chair filesystem layout and Dependencies of packages
+#labels Deprecated,Phase-Design
+
+= Filesystem Layout: =
+
+Library is done *as plain as it is possible*.
+
+/chair/package/ - that is where package located.
+
+For autoload package location is /chair/autoload/
+
+For context package location is /chair/context/ and so on..
+
+= Dependencies: =
+
+All packages have 2 stable dependencies:
+
+  * autoload package
+  * context package
+
+Other package dependencies should be mentioned inside package description.

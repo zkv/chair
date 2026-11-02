@@ -1,0 +1,63 @@
+#summary Access management with chair/access package
+
+= Example: =
+
+== Configuration file ==
+
+{{{
+<?xml version='1.0'?>
+<groups>
+    <group name='Guest'>
+        <resource name='Book'>
+            <action name='Get_Title' />
+            <action name='Get_Page' />
+        </resource>
+    </group>
+    <group name='Publisher'>
+        <resource name='Book'>
+            <action name='Get_Title' />
+            <action name='Get_Page' />
+            <action name='Change_Title' />
+            <action name='Delete' />
+        </resource>
+    </group>
+</groups>
+}}}
+
+
+== Code: ==
+
+{{{
+/* For usage of contexts we have to add this line to the used context configuration file:
+<contexts>
+    <context name='Example'>
+        <method name='getACL' class='Simple_ACL' method='__construct' />
+    </context>
+</contexts>
+*/
+
+class Example
+{
+    public function run()
+    {
+        $context = Context_Manager::getContext(__CLASS__);
+        $acl = $context->getACL();
+
+        $acl->load('configs/acl.xml');
+        $groups = $acl->getGroupsByTargetAndAction('Book', 'Get_Title');
+        
+        $user = $context->getUser();
+        $userGroups = $user->getGroups();
+        
+        if (count(array_intersect($groups, $userGroups))) {
+            /* user can execute Get_Title action on Book resource */
+        } else {
+            /* user group do not have access to Get_Title on Book */
+        }
+    }
+}
+
+$example = new Example();
+$example->run();
+
+}}}

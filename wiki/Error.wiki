@@ -1,0 +1,13 @@
+#summary Error management inside chair/error package
+
+= Example: =
+
+{{{
+set_error_handler(array('Error_Handler', 'handle'));
+
+try {
+    echo $information;
+} catch (Exception $e) {
+    header('Status: 500 - Internal Server Error', true, 500);
+}
+}}}

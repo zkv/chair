@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<routes>
+	<route>
+		<path><![CDATA[^/example$]]></path>
+		<path><![CDATA[(?P<query>^/example/$)]]></path>
+		<output default='html'>
+			<html mime='text/html' href='configuration/plans/html_example.xml' />
+			<xml mime='text/xml' href='configuration/plans/xml_example.xml' />
+			<text mime='text/plain' href='configuration/plans/text_example.xml' />
+		</output>
+	</route>
+</routes>

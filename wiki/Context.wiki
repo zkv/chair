@@ -1,0 +1,68 @@
+#summary Dependency Injection package inside chair/context
+
+= Dependencies =
+
+Depends on the autoload.
+
+= About It: =
+
+We tried to minimize number of external dependencies in our applications.
+
+And came to conclusion that it can be done with one stable external dependency done as a static class which provide caller with context object. 
+
+Context object is a container with methods associated with this context. 
+
+Contexts described inside configuration file, which should be loaded before work with context. 
+
+System can merge more then 1 configuration file.
+
+= Example =
+
+== Configuration file example ==
+{{{
+<contexts>
+    <context name=''>
+        <command name='run' class='Main' method='execute' />
+    </context>
+    <context name='Main'>
+        <command name='start' class='Grabber' method='run' />
+        <command name='output' class='Renderer' method='visualize' />
+    </context>
+</contexts>
+}}}
+
+== PHP Code: ==
+
+{{{
+
+Context_Manager::load('contexts/main.xml');
+
+Context_Manager::getContext(__CLASS__)->run();
+
+class Main
+{
+    public function execute()
+    {
+        $context = Context_Manager::getContext(__CLASS__);
+        $context->start();
+        $context->output();
+    }
+}
+
+class Grabber
+{
+    public function run()
+    {
+        /* inside Grabber::run */
+    }
+}
+
+class Renderer
+{
+    public function visualize()
+    {
+        /* inside Renderer::visualize */
+    }
+}
+
+}}}

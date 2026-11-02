@@ -1,0 +1,11 @@
+#summary List of packages in chair
+#labels Deprecated
+
+= Packages in the system =
+
+  * [http://code.google.com/p/chair/wiki/Access access]
+  * [http://code.google.com/p/chair/wiki/Autoload autoload]
+  * [http://code.google.com/p/chair/wiki/Context context]
+  * [http://code.google.com/p/chair/wiki/Framework framework]
+  * [http://code.google.com/p/chair/wiki/Development development]
+  * [http://code.google.com/p/chair/wiki/Error error]

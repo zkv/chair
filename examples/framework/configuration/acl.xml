@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+<groups>
+	<group name='Guest'>
+		<resource name='Notes'>
+			<action name='Show_Notes' />
+			<action name='Show_No_Such_Page' />
+			<action name='Show_Note' />
+			<action name='Show_Main'/>
+		</resource>
+		<resource name='Blog'>
+			<action name='Show_Messages'/>
+		</resource>
+	</group>
+</groups>
+
